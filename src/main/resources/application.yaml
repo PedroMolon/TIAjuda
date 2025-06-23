@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: tiajuda
+
+  datasource:
+    url: jdbc:postgresql://localhost:5431/tiajuda
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+
+  flyway:
+    enabled: true
+
+jwt:
+  security:
+    secret: "M60gE5tSG92FSSsIWJ6WKIfyCEtBnRtZ"
+
+admin:
+  name: "Admin"
+  email: "admin@tiajuda.com"
+  password: "senhaAdmin123"
