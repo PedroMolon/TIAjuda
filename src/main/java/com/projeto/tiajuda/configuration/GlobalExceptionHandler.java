@@ -57,11 +57,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler({BadCredentialsException.class, UsernameNotFoundException.class, InsufficientAuthenticationException.class}) // <-- ADICIONADO AQUI
+    @ExceptionHandler({BadCredentialsException.class, UsernameNotFoundException.class, InsufficientAuthenticationException.class})
     public ResponseEntity<ErrorResponse> handleAuthenticationExceptions(RuntimeException ex, WebRequest request) {
         String path = ((ServletWebRequest) request).getRequest().getRequestURI();
         ErrorResponse errorResponse = new ErrorResponse(
-                "Autenticação necessária para acessar este recurso.", // Mensagem mais apropriada para 401 geral
+                "Autenticação necessária para acessar este recurso.",
                 HttpStatus.UNAUTHORIZED,
                 path
         );

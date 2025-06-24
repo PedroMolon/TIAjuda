@@ -71,10 +71,10 @@ public class SecurityConfig {
                         // Criar uma proposta (TECNICO)
                         .requestMatchers(HttpMethod.POST, "/tiajuda/proposals").hasRole("TECHNICIAN")
 
-                        // Atualizar proposta (TECNICO)
+                        // Atualizar uma proposta (TECNICO)
                         .requestMatchers(HttpMethod.PUT, "/tiajuda/proposals/{id}").hasRole("TECHNICIAN")
 
-                        // Deletar proposta (TECNICO ou ADMIN)
+                        // Deletar uma proposta (TECNICO ou ADMIN)
                         .requestMatchers(HttpMethod.DELETE, "/tiajuda/proposals/{id}").hasAnyRole("TECHNICIAN", "ADMIN")
 
                         // Aceitar e rejeitar propostas
@@ -83,6 +83,18 @@ public class SecurityConfig {
 
                         // Criar uma avaliação (CLIENTE)
                         .requestMatchers(HttpMethod.POST, "/tiajuda/ratings").hasRole("CLIENT")
+
+                        // Marcar serviço como concluído (CLIENTE)
+                        .requestMatchers(HttpMethod.PUT, "/tiajuda/service-request/{id}/complete").hasRole("CLIENT")
+
+                        // Edição de cadastro
+                        .requestMatchers(HttpMethod.GET, "/tiajuda/users/{id}").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/tiajuda/users/{id}").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/tiajuda/users/{id}/password").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/tiajuda/users/{id}").authenticated()
+
+                        // Exclusão de cadastro
+                        .requestMatchers(HttpMethod.DELETE, "/tiajuda/users/{id}").authenticated()
 
                         // Endpoints que exigem autenticação
                         .anyRequest().authenticated()

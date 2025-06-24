@@ -46,6 +46,9 @@ public class User implements UserDetails {
     @Column(nullable = false, name = "updated_at")
     private Instant updatedAt;
 
+    @Column(columnDefinition = "boolean default true")
+    private boolean isActive = true;
+
     public User() {
     }
 
@@ -54,6 +57,7 @@ public class User implements UserDetails {
         this.email = email;
         this.password = password;
         this.roles = new ArrayList<>(roles);
+        this.isActive = true;
     }
 
     public Long getId() {
@@ -110,6 +114,14 @@ public class User implements UserDetails {
 
     public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     @Override

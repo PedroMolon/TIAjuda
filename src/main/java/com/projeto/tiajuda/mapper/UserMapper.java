@@ -30,7 +30,7 @@ public class UserMapper {
         );
     }
 
-    public UserResponse toUserResponse(User user) {
+    public static UserResponse toUserResponse(User user) {
         if (user == null) {
             return null;
         }
