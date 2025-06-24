@@ -1,7 +1,5 @@
 package com.projeto.tiajuda.service;
 
-import com.projeto.tiajuda.configuration.security.JWTUserData;
-import com.projeto.tiajuda.entity.User;
 import com.projeto.tiajuda.exceptions.UserNotFoundException;
 import com.projeto.tiajuda.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,14 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
+        return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado."));
-
-        if (!user.isActive()) {
-            throw new UsernameNotFoundException("Email ou senha inválidos.");
-        }
-
-        return new JWTUserData(user);
     }
 
 }
