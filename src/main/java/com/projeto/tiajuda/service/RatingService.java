@@ -60,7 +60,7 @@ public class RatingService {
             throw new ValidationException("Apenas o cliente que criou a solicitação de serviço pode completá-la");
         }
 
-        if (serviceRequest.getStatus() != ServiceStatus.IN_NEGOTIATION) {
+        if (serviceRequest.getStatus() != ServiceStatus.IN_PROGRESS) {
             throw new ValidationException("Service Request não pode ser completada");
         }
 

@@ -44,6 +44,7 @@ public class ServiceRequestController {
     }
 
     @PutMapping("/{id}/complete")
+    @PreAuthorize("hasRole('CLIENT')")
     public ResponseEntity<ServiceRequestResponse> completeServiceRequest(@PathVariable Long id) {
         ServiceRequestResponse completedService = ratingService.completeServiceRequest(id);
         return ResponseEntity.ok(completedService);

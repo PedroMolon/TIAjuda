@@ -33,6 +33,12 @@ public class ServiceRequest {
     @Column(nullable = false)
     private ServiceStatus status;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean isPaid = false;
+
+    @OneToOne(mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Payment payment;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private User client;
@@ -150,12 +156,28 @@ public class ServiceRequest {
         this.proposals = proposals;
     }
 
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
     @PrePersist
     protected void onCreate() {
         this.createdAt = Instant.now();
         this.updatedAt = Instant.now();
         if (this.status == null) {
-            this.status = ServiceStatus.OPEN;
+            this.status = ServiceStatus.PENDING;
         }
     }
 

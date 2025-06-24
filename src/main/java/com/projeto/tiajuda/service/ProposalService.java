@@ -70,7 +70,7 @@ public class ProposalService {
         ServiceRequest serviceRequest = serviceRequestRepository.findById(proposalCreate.serviceRequestId())
                 .orElseThrow(() -> new CustomAuthenticationException("Serviço não encontrado com o ID"));
 
-        if (serviceRequest.getStatus() != ServiceStatus.OPEN) {
+        if (serviceRequest.getStatus() != ServiceStatus.PENDING) {
             throw new ValidationException("Não é possível enviar proposta para um serviço com status: " + serviceRequest.getStatus());
         }
 
@@ -269,7 +269,7 @@ public class ProposalService {
                 proposalId, acceptedProposal.getServiceRequest().getId(), authenticatedClient.getId());
 
         ServiceRequest serviceRequest = acceptedProposal.getServiceRequest();
-        serviceRequest.setStatus(ServiceStatus.IN_NEGOTIATION);
+        serviceRequest.setStatus(ServiceStatus.IN_PROGRESS);
         serviceRequestRepository.save(serviceRequest);
         logger.info("Status do serviço ID {} atualizado para IN_NEGOTIATION.", serviceRequest.getId());
 
@@ -316,4 +316,5 @@ public class ProposalService {
 
         return proposalMapper.toResponse(rejectedProposal);
     }
+
 }
